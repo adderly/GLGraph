@@ -3,6 +3,7 @@ package com.example.graph;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -11,18 +12,36 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.os.Build;
 
-public class GraphActivity extends Activity {
-
+public class GraphActivity extends Activity 
+{
+	private GLSurfaceView glView;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_graph);
+		  super.onCreate(savedInstanceState);
+	      glView = new GLSurfaceView(this);           // Allocate a GLSurfaceView
+	      glView.setRenderer(new CustomGLRenderer(this)); // Use a custom renderer
+	      this.setContentView(glView);                // This activity sets to GLSurfaceView
+		/*setContentView(R.layout.activity_graph);
 
 		if (savedInstanceState == null) {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		}*/
 	}
+	
+	@Override
+	protected void onPause()
+	{
+	      super.onPause();
+	      glView.onPause();	
+	}
+	
+    @Override
+    protected void onResume() {
+       super.onResume();
+       glView.onResume();
+    }
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

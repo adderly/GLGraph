@@ -11,10 +11,12 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 {
 
 	Context context; //application context
+	Triangle triangle;
 	
 	public CustomGLRenderer(Context appContext)
 	{
 		this.context = appContext;
+		triangle =  new Triangle();
 	}
 	
 	@Override
@@ -53,6 +55,10 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 	public void onDrawFrame(GL10 gl) 
 	{
 	      gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+	      
+	      gl.glLoadIdentity();
+	      gl.glTranslatef(-1.5f, -0.0f, -6.0f);
+	      triangle.draw(gl);
 	}
 
 
