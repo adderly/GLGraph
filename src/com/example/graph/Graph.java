@@ -1,6 +1,7 @@
 package com.example.graph;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
@@ -27,6 +28,7 @@ public class Graph
 	public Graph()
 	{
 		grid = new Grid();		
+		addTestPoints();
 	}
 	
 	/**
@@ -39,10 +41,33 @@ public class Graph
 		}
 	}	
 	
+	
+	private void addTestPoints()
+	{
+		float y = 0.0f;
+		for(int n = 0;n<150;n++){
+			y+= 0.06;
+			addPoint(-0.0f, y, 0.0f);
+		}
+	}
+	
+	public void addPoint(float x,float y,float z)
+	{
+		Point point = new Point();
+		point.setVertex(x, y, z);
+		_drawables.add(point);
+	}
+	
+	
 	/***/	
 	public void draw(GL10 gl)
 	{
 		grid.draw(gl);
+		Iterator<GraphObject> it = _drawables.iterator();
+		while(it.hasNext()){
+			GraphObject obj = it.next();
+			obj.draw(gl);
+		}
 	}
 	
 	

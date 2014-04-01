@@ -33,7 +33,7 @@ public class Line implements Graph.GraphObject
 		vertexBuffer.put(vertices);
 		vertexBuffer.position(0);
 		
-		indicesBuffer = ByteBuffer.allocateDirect(4*indices.length);
+		indicesBuffer = ByteBuffer.allocateDirect(indices.length);
 		indicesBuffer.put(indices);
 		indicesBuffer.position(0);		
 	}
