@@ -11,12 +11,17 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 {
 
 	Context context; //application context
+	Graph graph;
 	Triangle triangle;
+	Line line;
 	
 	public CustomGLRenderer(Context appContext)
 	{
 		this.context = appContext;
+		graph = new Graph();
 		triangle =  new Triangle();
+		line = new Line();
+		line.setVertex(-0.0f, 0, 0, 0.6f, 0, 0);
 	}
 	
 	@Override
@@ -46,8 +51,7 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 	      GLU.gluPerspective(gl, 45, aspect, 0.1f, 100.f);
 	  
 	      gl.glMatrixMode(GL10.GL_MODELVIEW);  // Select model-view matrix
-	      gl.glLoadIdentity();                 // Reset
-		
+	      gl.glLoadIdentity();                 // Reset		
 	}
 
 	
@@ -55,10 +59,15 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 	public void onDrawFrame(GL10 gl) 
 	{
 	      gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
-	      
+
 	      gl.glLoadIdentity();
-	      gl.glTranslatef(-1.5f, -0.0f, -6.0f);
-	      triangle.draw(gl);
+	      gl.glTranslatef(-0.5f, -0.0f, -1.0f);
+	      //triangle.draw(gl);
+
+	      //gl.glTranslatef(0.0f, 0.0f, -1.0f);
+	      line.draw(gl);
+	      
+	      graph.draw(gl);	      
 	}
 
 

@@ -2,12 +2,16 @@ package com.example.graph;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+
 import javax.microedition.khronos.opengles.GL10;
+
+import com.example.graph.Graph.GraphObject;
   
 /*
  * A triangle with 3 vertices.
  */
-public class Triangle {
+public class Triangle  implements GraphObject
+{
    private FloatBuffer vertexBuffer;  // Buffer for vertex-array
    private ByteBuffer indexBuffer;    // Buffer for index-array
   
