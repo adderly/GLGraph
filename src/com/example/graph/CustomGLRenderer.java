@@ -21,7 +21,7 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 		graph = new Graph();
 		triangle =  new Triangle();
 		line = new Line();
-		line.setVertex(-0.0f, 0, 0, 0.6f, 0, 0);
+		line.setVertex(-0.0f, 0, 0, 0.5f, 0, 0);
 	}
 	
 	@Override
@@ -62,9 +62,7 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 
 	      gl.glLoadIdentity();
 	      gl.glTranslatef(-0.5f, -0.0f, -1.0f);
-	      //triangle.draw(gl);
-
-	      //gl.glTranslatef(0.0f, 0.0f, -1.0f);
+	      
 	      line.draw(gl);
 	      
 	      graph.draw(gl);	      

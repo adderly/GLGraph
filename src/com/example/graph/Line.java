@@ -13,6 +13,7 @@ public class Line implements Graph.GraphObject
 {
 	private ByteBuffer indicesBuffer;
 	private FloatBuffer vertexBuffer;
+	private FloatBuffer colorBuffer;
 	
 	
 	//vertices
@@ -32,6 +33,12 @@ public class Line implements Graph.GraphObject
 		vertexBuffer = vf.asFloatBuffer();
 		vertexBuffer.put(vertices);
 		vertexBuffer.position(0);
+		
+		ByteBuffer cb = ByteBuffer.allocateDirect(4*Graph.Color.colors.length);
+		cb.order(ByteOrder.nativeOrder());
+		colorBuffer = cb.asFloatBuffer();
+		colorBuffer.put(Graph.Color.colors);
+		colorBuffer.position(0);
 		
 		indicesBuffer = ByteBuffer.allocateDirect(indices.length);
 		indicesBuffer.put(indices);
@@ -60,8 +67,12 @@ public class Line implements Graph.GraphObject
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
 		
+		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);
+		gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
+		
 		gl.glDrawElements(GL10.GL_LINES, indices.length, GL10.GL_UNSIGNED_BYTE, indicesBuffer);
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);		
+		gl.glDisableClientState(GL10.GL_COLOR_ARRAY);		
 	}
 	
 }

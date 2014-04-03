@@ -19,6 +19,8 @@ public class Grid implements GraphObject
 	private ByteBuffer vertexBuffer;
 	private FloatBuffer indices;
 	
+	float graphLimit = 1; //the limit of drawing distance in screen	
+	
 	private List<Line> lines = new ArrayList<Line>(); 
 	
 	public Grid()
@@ -32,7 +34,7 @@ public class Grid implements GraphObject
 		lines.add(line2);
 		
 		Line line3 = new Line();
-		line3.setVertex(0.0f, 0, 0, 0.0f, 0.0f, 0.6f);
+		line3.setVertex(-0.0f, 0, 0, 0.2f, 0.2f, -0.6f);
 		lines.add(line3);
 	}
 	
