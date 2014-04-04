@@ -37,6 +37,7 @@ public class Grid extends GOColored
 		line3.setVertex(-0.0f, 0, 1.0f, 0, 0.0f, -1.0f);
 		line3.setColor(c.RED);
 		lines.add(line3);
+		setGridLines(true);
 	}
 	
 	/**
@@ -44,7 +45,12 @@ public class Grid extends GOColored
 	 * */
 	public void setGridLines(boolean what)
 	{
-		
+		for(float n = -1.0f;n < 1;n+=0.05){
+			Line line3 = new Line();
+			line3.setVertex(n, 0, 1.0f, n, 0.0f, -1.0f);
+			line3.setColor(c.RED);
+			lines.add(line3);
+		}
 	}
 	
 	public void draw(GL10 gl)

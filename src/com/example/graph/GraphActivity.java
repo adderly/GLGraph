@@ -14,13 +14,12 @@ import android.os.Build;
 
 public class GraphActivity extends Activity 
 {
-	private GLSurfaceView glView;
+	private GLView glView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		  super.onCreate(savedInstanceState);
-	      glView = new GLSurfaceView(this);           // Allocate a GLSurfaceView
-	      glView.setRenderer(new CustomGLRenderer(this)); // Use a custom renderer
+	      glView = new GLView(this);           // Allocate a GLSurfaceView
 	      this.setContentView(glView);                // This activity sets to GLSurfaceView
 		/*setContentView(R.layout.activity_graph);
 

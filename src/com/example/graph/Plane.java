@@ -5,6 +5,9 @@ import java.nio.ByteOrder;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 import com.example.graph.Graph.Color.c;
 
 /**
@@ -12,18 +15,25 @@ import com.example.graph.Graph.Color.c;
  * */
 public class Plane extends GOColored
 {
-	float[] vertices;
-	
-	
-	
-	public Plane(){
-		setColor(c.RED);
-		float[] vertex = {
-				0,0,0,
-				1,0,0				
+	private float[] vertices ={
+		      -1.0f, -1.0f,  0.0f,  // 0. left-bottom
+		       1.0f, -1.0f,  0.0f,  // 1. right-bottom
+		      -1.0f,  1.0f,  0.0f,  // 2. left-top
+		       1.0f,  1.0f,  0.0f   // 3. right-top		
+		      //-1.0f,  1.0f,  -1.0f,  // 2. left-top
+		      // 1.0f,  1.0f,  0.0f   // 3. right-top		
 		};
-		setVertex(vertex, 15);
-		
+	
+	public Plane()
+	{
+		setColor(c.RED);
+			
+
+		ByteBuffer  vb = ByteBuffer.allocateDirect(vertices.length*4);
+		vb.order(ByteOrder.nativeOrder());
+		vertexBuffer = vb.asFloatBuffer();
+		vertexBuffer.put(vertices);
+		vertexBuffer.position(0);
 	}
 	
 	
@@ -35,6 +45,15 @@ public class Plane extends GOColored
 		setColor(c.WHITE);
 		setVertex(v, zDepth);
 	}	
+	
+	public void setVertices(float[] vertexs){
+		vertices = vertexs;
+		ByteBuffer  vb = ByteBuffer.allocateDirect(vertices.length*4);
+		vb.order(ByteOrder.nativeOrder());
+		vertexBuffer = vb.asFloatBuffer();
+		vertexBuffer.put(vertices);
+		vertexBuffer.position(0);
+	}
 	
 	/**
 	 * 
@@ -48,12 +67,7 @@ public class Plane extends GOColored
 		// fill the float array, for
 		for(int n = 0 ; n < v.length /3;n+=3)
 		{
-			if(n == 0){
-				vertices[n] = v[n];
-				vertices[n+1] = v[n+1];
-				vertices[n+2] = v[n+2];
-				
-			}else{
+			
 				vertices[n] = v[n];
 				vertices[n+1] = v[n+1];
 				vertices[n+2] = v[n+2];
@@ -62,8 +76,6 @@ public class Plane extends GOColored
 				vertices[n+4] = v[n+1];
 				vertices[n+5] = zdeph;
 				n+=3;
-			}
-			//addPoint(n, n+1, n+2);
 		}		
 		
 		ByteBuffer bf = ByteBuffer.allocateDirect(4*vertices.length);
@@ -71,6 +83,8 @@ public class Plane extends GOColored
 		vertexBuffer = bf.asFloatBuffer();
 		vertexBuffer.put(vertices);
 		vertexBuffer.position(0);
+		
+		
 	}	
 	
 	@Override

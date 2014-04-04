@@ -10,6 +10,7 @@ import android.opengl.GLU;
 public class CustomGLRenderer implements GLSurfaceView.Renderer
 {
 
+	public volatile float mAngle = -0.2f;
 	Context context; //application context
 	Graph graph;
 	Triangle triangle;
@@ -61,8 +62,8 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 	      gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
 	      gl.glLoadIdentity();
-	      gl.glTranslatef(-1.0f, -0.0f, -3.0f);
-	      gl.glRotatef(-40, 0, 1.5f, 0.5f);
+	      gl.glTranslatef(-1.0f, -0.0f, -2.5f);
+	      gl.glRotatef(-40, -0.2f, mAngle, 0.4f);
 	     // gl.glRotatef(-25.9f, -150.0f, -60.5f, 0);
 	      //triangle.draw(gl);
 	      
@@ -70,6 +71,15 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 	      
 	      if(!Graph.locked)
 	    	  graph.draw(gl);	      
+	}
+
+	public float getAngle() {
+		// TODO Auto-generated method stub
+		return mAngle;
+	}
+
+	public void setAngle(float f) {
+		mAngle = f;		
 	}
 
 

@@ -41,8 +41,88 @@ public class Graph
 		point.setVertex(0.55f, 0, 0);
 		Plane plane =  new Plane();
 		//_drawables.add(plane);
+		addPlanes();
 		
-		addTestPoints();
+		//addTestPoints();
+	}
+	
+	/**
+	 * 	Set usable data for graphing as planes.  
+	 * */
+	public void setPlaneData(float[] vertexData,float zVertex)
+	{
+		float[] tmpArray = new float[12];
+		Plane plane = null;
+
+		_previewsVertex[0] = -0.0f;
+		_previewsVertex[1] = 0.0f;
+		_previewsVertex[2] = 0.0f;
+		try
+		{
+			for(int n =0;n < vertexData.length; n+=3)
+			{
+				//first vertex
+				tmpArray[0] = vertexData[n];
+				tmpArray[1] = vertexData[n+1];
+				tmpArray[2] = vertexData[n+2];
+
+				//second vertex
+				tmpArray[3] = vertexData[n+3];
+				tmpArray[4] = vertexData[n+4];
+				tmpArray[5] = vertexData[n+5];
+				
+				//third vertex
+				tmpArray[6] = vertexData[n];
+				tmpArray[7] = vertexData[n+1];
+				tmpArray[8] = zVertex;
+
+				//fourth vertex
+				tmpArray[9] = vertexData[n+3];
+				tmpArray[10] = vertexData[n+4];
+				tmpArray[11] = zVertex;			
+				
+
+				_previewsVertex[0] = vertexData[n+3];
+				_previewsVertex[1] = vertexData[n+4];
+				_previewsVertex[2] = vertexData[n+5];			
+				
+				plane = new Plane();
+				plane.setVertices(tmpArray);
+				_drawables.add(plane);
+			}
+		}catch(Exception e){
+			
+		}
+	}
+	
+	
+	public void addPlanes()
+	{
+		float[] generated = new float[350*3];
+		float y = 0.0f;
+		float x = 0.0f;
+		_previewsVertex[0] = -0.0f;
+		_previewsVertex[1] = 0.0f;
+		_previewsVertex[2] = 0.0f;
+		for(int n = 0, index = 0;n<350;n++,index+=3){
+			y+= 0.03;
+			x+= 0.005;
+			addPoint(x, y, 0.0f);
+
+			generated[index] = x;
+			generated[index+1] = y ;//*( n % 2 == 0 ? -1:1);
+			generated[index+2] = -0.8f;
+			//addLine(_previewsVertex[0], _previewsVertex[1], _previewsVertex[2], x, y, 0.0f);
+
+			_previewsVertex[0] = x;
+			_previewsVertex[1] = y;//*( n % 2 == 0 ? -1:1);
+			_previewsVertex[2] = 0.0f;
+		}
+		Log.wtf("DRAWABLES", "AMOUNT = "+_drawables.size());
+		Plane plane = new Plane(generated,-0.5f);
+		//_drawables.add(plane);
+		setPlaneData(generated, -0.5f);
+		
 	}
 	
 	
@@ -91,17 +171,17 @@ public class Graph
 			addPoint(x, y, 0.0f);
 
 			generated[index] = x;
-			generated[index+1] = y;
+			generated[index+1] = y *( n % 2 == 0 ? -1:1);
 			generated[index+2] = -0.8f;
 			//addLine(_previewsVertex[0], _previewsVertex[1], _previewsVertex[2], x, y, 0.0f);
 
 			_previewsVertex[0] = x;
-			_previewsVertex[1] = y;
+			_previewsVertex[1] = y*( n % 2 == 0 ? -1:1);
 			_previewsVertex[2] = 0.0f;
 		}
 		Log.wtf("DRAWABLES", "AMOUNT = "+_drawables.size());
 		Plane plane = new Plane(generated,-0.5f);
-		_drawables.add(plane);
+		//_drawables.add(plane);
 		
 	}
 	
