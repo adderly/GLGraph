@@ -61,11 +61,15 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 	      gl.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
 
 	      gl.glLoadIdentity();
-	      gl.glTranslatef(-0.5f, -0.0f, -1.0f);
+	      gl.glTranslatef(-1.0f, -0.0f, -3.0f);
+	      gl.glRotatef(-40, 0, 1.5f, 0.5f);
+	     // gl.glRotatef(-25.9f, -150.0f, -60.5f, 0);
+	      //triangle.draw(gl);
 	      
-	      line.draw(gl);
+	     // line.draw(gl);
 	      
-	      graph.draw(gl);	      
+	      if(!Graph.locked)
+	    	  graph.draw(gl);	      
 	}
 
 

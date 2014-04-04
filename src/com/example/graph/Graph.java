@@ -19,9 +19,11 @@ public class Graph
 	private List<GraphObject> _drawables = new ArrayList<GraphObject>();
 	
 	private Grid grid;
-	private Point point;
-	
+	private Point point;	
+	private Rectangle rectangle;
 	public static float[] _previewsVertex = {0,0f,0,0f,0,0f};
+	//will be used for locking the rendering container upon modifications
+	public static boolean locked = false;  
 	
 	//points of beggining and end of the line
 	private float[] linesPoints = 
@@ -33,40 +35,73 @@ public class Graph
 	public Graph()
 	{
 		grid = new Grid();		
+		rectangle = new Rectangle();
+		//_drawables.add(rectangle);
 		point = new Point();
 		point.setVertex(0.55f, 0, 0);
+		Plane plane =  new Plane();
+		//_drawables.add(plane);
+		
 		addTestPoints();
 	}
 	
+	
 	/**
-	 * 
+	 * Cleans the data of the current graphics.
 	 * */
-	public void setGraphPoints(float[] points,int vertexAmount,float scaleMin,float scaleMax)
+	public void cleanData(){
+		locked = true;
+		_drawables.clear();		
+		locked = false;
+	}
+	
+	/**
+	 * 	Add simple points to plot.
+	 *  example = [x,y,z,x1,y2,z2] (All values into one array)
+	 * */
+	public void setGraphPoints(float[] points)
 	{
-		for(int n = 0 ; n < vertexAmount;n++){
-			
+		for(int n = 0 ; n < points.length /3;n+=3)
+		{
+			addPoint(n, n+1, n+2);
 		}
 	}	
+	
+	/**
+	 * 	Set the drawing distance from 0-1.
+	 * 	This is used to set the size of the grid.
+	 * */
+	public void setDrawingSpace(float size)
+	{
+		
+	}
 	
 	
 	private void addTestPoints()
 	{
+		float[] generated = new float[350*3];
 		float y = 0.0f;
 		float x = 0.0f;
 		_previewsVertex[0] = -0.0f;
 		_previewsVertex[1] = 0.0f;
 		_previewsVertex[2] = 0.0f;
-		for(int n = 0;n<150;n++){
+		for(int n = 0, index = 0;n<350;n++,index+=3){
 			y+= 0.03;
-			x+= 0.05;
+			x+= 0.005;
 			addPoint(x, y, 0.0f);
-			addLine(_previewsVertex[0], _previewsVertex[1], _previewsVertex[2], x, y, 0.0f);
+
+			generated[index] = x;
+			generated[index+1] = y;
+			generated[index+2] = -0.8f;
+			//addLine(_previewsVertex[0], _previewsVertex[1], _previewsVertex[2], x, y, 0.0f);
 
 			_previewsVertex[0] = x;
 			_previewsVertex[1] = y;
 			_previewsVertex[2] = 0.0f;
 		}
 		Log.wtf("DRAWABLES", "AMOUNT = "+_drawables.size());
+		Plane plane = new Plane(generated,-0.5f);
+		_drawables.add(plane);
 		
 	}
 	
@@ -90,22 +125,15 @@ public class Graph
 	{
 		grid.draw(gl);
 		
-		point.draw(gl);
+		//point.draw(gl);
 		
 		Iterator<GraphObject> it = _drawables.iterator();
-		while(it.hasNext()){
+		while(it.hasNext() && !locked){
 			GraphObject obj = it.next();
 			obj.draw(gl);
 		}
 	}
 	
-	
-	/**
-	 * Simple interface for the objects to be drawn.
-	 * */
-	public interface GraphObject{
-		public void draw(GL10 gl);
-	}
 	
 	public static class Color
 	{
@@ -115,7 +143,8 @@ public class Graph
 			      0.0f, 1.0f, 0.0f, 1.0f,  // 1. green
 			      0.0f, 0.0f, 1.0f, 1.0f,  // 2. blue
 			      0.0f, 1.0f, 0.0f, 1.0f,  // 3. green
-			      1.0f, 0.0f, 0.0f, 1.0f   // 4. red
+			      1.0f, 0.0f, 0.0f, 1.0f,   // 4. red
+			      1.0f, 1.0f, 1.0f, 1.0f   // 4. white
 		   };
 		public static enum c{
 			RED,GREEN,BLUE,BLACK,WHITE

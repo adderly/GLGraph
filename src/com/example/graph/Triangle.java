@@ -5,12 +5,12 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import com.example.graph.Graph.GraphObject;
+import com.example.graph.Graph.Color.c;
   
 /*
  * A triangle with 3 vertices.
  */
-public class Triangle  implements GraphObject
+public class Triangle extends GOColored
 {
    private FloatBuffer vertexBuffer;  // Buffer for vertex-array
    private ByteBuffer indexBuffer;    // Buffer for index-array
@@ -35,6 +35,8 @@ public class Triangle  implements GraphObject
       indexBuffer = ByteBuffer.allocateDirect(indices.length);
       indexBuffer.put(indices);
       indexBuffer.position(0);
+      
+      setColor(c.RED);
    }
   
    // Render this shape
@@ -43,8 +45,12 @@ public class Triangle  implements GraphObject
       gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
       gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
       
+      gl.glEnableClientState(GL10.GL_COLOR_ARRAY);     
+      gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
+      
       // Draw the primitives via index-array
       gl.glDrawElements(GL10.GL_TRIANGLES, indices.length, GL10.GL_UNSIGNED_BYTE, indexBuffer);
       gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);
+      gl.glDisableClientState(GL10.GL_COLOR_ARRAY);
    }
 }

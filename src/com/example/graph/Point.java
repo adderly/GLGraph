@@ -6,8 +6,6 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import com.example.graph.Graph.GraphObject;
-
 /**
  * Point object
  * */

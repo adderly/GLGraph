@@ -9,7 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 /**
  * Simple gl lines
  * */
-public class Line implements Graph.GraphObject
+public class Line extends GOColored
 {
 	private ByteBuffer indicesBuffer;
 	private FloatBuffer vertexBuffer;

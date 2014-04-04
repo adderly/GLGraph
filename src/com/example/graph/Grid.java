@@ -8,13 +8,13 @@ import java.util.List;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import com.example.graph.Graph.GraphObject;
+import com.example.graph.Graph.Color.c;
 
 
 /**
  * 	Draws the grid of the graphics.
  * */
-public class Grid implements GraphObject
+public class Grid extends GOColored
 {
 	private ByteBuffer vertexBuffer;
 	private FloatBuffer indices;
@@ -26,16 +26,25 @@ public class Grid implements GraphObject
 	public Grid()
 	{
 		Line line1 = new Line();
-		line1.setVertex(-0.0f, 0, 0, 0.6f, 0, 0);
+		line1.setVertex(-1.0f, 0, 0, 1.0f, 0, 0);
 		lines.add(line1);
 
 		Line line2 = new Line();
-		line2.setVertex(-0.0f, 0, 0, 0.0f, 0.6f, 0);
+		line2.setVertex(-0.0f, -1.0f, 0, 0.0f, 1.0f, 0);
 		lines.add(line2);
 		
 		Line line3 = new Line();
-		line3.setVertex(-0.0f, 0, 0, 0.2f, 0.2f, -0.6f);
+		line3.setVertex(-0.0f, 0, 1.0f, 0, 0.0f, -1.0f);
+		line3.setColor(c.RED);
 		lines.add(line3);
+	}
+	
+	/**
+	 * Set the lines for the drawing space.
+	 * */
+	public void setGridLines(boolean what)
+	{
+		
 	}
 	
 	public void draw(GL10 gl)
