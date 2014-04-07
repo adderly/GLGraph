@@ -10,12 +10,16 @@ public class GLView extends GLSurfaceView
 
     float mPreviousX = 0;
 	float mPreviousY = 0;
-	private CustomGLRenderer renderer;
+	public CustomGLRenderer renderer;
 	
 	public GLView(Context context) {
 		super(context);
 		renderer = new CustomGLRenderer(context);
 		setRenderer(renderer);
+	}
+	
+	public CustomGLRenderer getRenderer(){
+		return renderer;
 	}
 
 	@Override

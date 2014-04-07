@@ -1,32 +1,75 @@
 package com.example.graph;
 
+import com.example.graph.Graph.Color.c;
+
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
-import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.os.Build;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
 
+/**
+ * 
+ * */
 public class GraphActivity extends Activity 
 {
 	private GLView glView;
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		  super.onCreate(savedInstanceState);
-	      glView = new GLView(this);           // Allocate a GLSurfaceView
-	      this.setContentView(glView);                // This activity sets to GLSurfaceView
-		/*setContentView(R.layout.activity_graph);
+	protected void onCreate(Bundle savedInstanceState)
+	{
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		super.onCreate(savedInstanceState);
+	    getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		  
+	    glView = new GLView(this);           // Allocate a GLSurfaceView
+	    this.hideSystemUI();
+	    setContentView(R.layout.activity_graph);
+	    
+	    
+		
+		RelativeLayout layout =  (RelativeLayout) findViewById(R.id.gamelayout);
+		RelativeLayout.LayoutParams params = new 
+				RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+		layout.addView(glView, params);
+		
 
-		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}*/
+		testPoint();
+	}
+	
+	
+	/**
+	 * Test method
+	 * */
+	public void testPoint()
+	{
+		Line line1 = new Line();
+		line1.setVertex(-1.0f, 0, 0, 1.0f,1.0f, 0);
+		line1.setColor(c.GREEN);//set the color 
+		glView.getRenderer().getGraph().addLine(line1); // add a line
+		
+		float y = 0.0f;
+		float x = 0.0f;
+		for(int n = 0, index = 0;n<350;n++){
+			y+= 0.004;
+			x+= 0.005;
+			glView.getRenderer().getGraph().addPoint(x, y, 0.0f);//add points
+		}
+	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		// TODO Auto-generated method stub
+		testPoint();
+		return super.onTouchEvent(event);
 	}
 	
 	@Override
@@ -49,6 +92,20 @@ public class GraphActivity extends Activity
 		getMenuInflater().inflate(R.menu.graph, menu);
 		return true;
 	}
+	
+	private void hideSystemUI()
+    {
+        // Set the IMMERSIVE flag.
+        // Set the content to appear under the system bars so that the content
+        // doesn't resize when the system bars hide and show.
+		glView.setSystemUiVisibility(
+				glView.SYSTEM_UI_FLAG_LAYOUT_STABLE 
+                | glView.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | glView.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | glView.SYSTEM_UI_FLAG_HIDE_NAVIGATION // hide nav bar
+                | glView.SYSTEM_UI_FLAG_FULLSCREEN // hide status bar
+                | glView.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {

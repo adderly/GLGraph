@@ -6,10 +6,12 @@ import java.nio.FloatBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
+import com.example.graph.Graph.Color.c;
+
 /**
  * Point object
  * */
-public class Point implements GraphObject
+public class Point extends GOColored
 {
 	private ByteBuffer indicesBuffer;
 	private FloatBuffer vertexBuffer;
@@ -30,6 +32,8 @@ public class Point implements GraphObject
 		indicesBuffer = ByteBuffer.allocateDirect(indices.length);
 		indicesBuffer.put(indices);
 		indicesBuffer.position(0);		
+		
+		setColor(c.RED);
 	}
 	
 	public void setVertex(float x,float y,float z)
@@ -44,11 +48,21 @@ public class Point implements GraphObject
 	
 	public void draw(GL10 gl) 
 	{
+		gl.glEnable(GL10.GL_POINT_SMOOTH);
+		gl.glEnable(GL10.GL_BLEND);
+		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
+		
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);
 		gl.glVertexPointer(3, GL10.GL_FLOAT, 0, vertexBuffer);
+	      
+		gl.glEnableClientState(GL10.GL_COLOR_ARRAY);     
+        gl.glColorPointer(4, GL10.GL_FLOAT, 0, colorBuffer);
 	
 		gl.glDrawElements(GL10.GL_POINTS, indices.length, GL10.GL_UNSIGNED_BYTE, indicesBuffer);
 		gl.glDisableClientState(GL10.GL_VERTEX_ARRAY);		
+
+		gl.glDisable(GL10.GL_POINT_SMOOTH);
+		gl.glDisable(GL10.GL_BLEND);
 	}
 
 }

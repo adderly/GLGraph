@@ -19,31 +19,20 @@ public class Graph
 	private List<GraphObject> _drawables = new ArrayList<GraphObject>();
 	
 	private Grid grid;
-	private Point point;	
-	private Rectangle rectangle;
 	public static float[] _previewsVertex = {0,0f,0,0f,0,0f};
+	
+	public static float pointSize = 2.0f; //the size of the points to draw
+	
 	//will be used for locking the rendering container upon modifications
 	public static boolean locked = false;  
-	
-	//points of beggining and end of the line
-	private float[] linesPoints = 
-	{
-		0,0f,0,0f,0,0f,
-		0,0f,0,0f,0,0f
-	};
-	
+		
 	public Graph()
 	{
 		grid = new Grid();		
-		rectangle = new Rectangle();
-		//_drawables.add(rectangle);
-		point = new Point();
-		point.setVertex(0.55f, 0, 0);
-		Plane plane =  new Plane();
-		//_drawables.add(plane);
+
 		addPlanes();
 		
-		//addTestPoints();
+		addTestPoints();
 	}
 	
 	/**
@@ -91,7 +80,7 @@ public class Graph
 				_drawables.add(plane);
 			}
 		}catch(Exception e){
-			
+			//TODO:
 		}
 	}
 	
@@ -119,8 +108,7 @@ public class Graph
 			_previewsVertex[2] = 0.0f;
 		}
 		Log.wtf("DRAWABLES", "AMOUNT = "+_drawables.size());
-		Plane plane = new Plane(generated,-0.5f);
-		//_drawables.add(plane);
+		
 		setPlaneData(generated, -0.5f);
 		
 	}
@@ -147,44 +135,33 @@ public class Graph
 		}
 	}	
 	
-	/**
-	 * 	Set the drawing distance from 0-1.
-	 * 	This is used to set the size of the grid.
-	 * */
-	public void setDrawingSpace(float size)
-	{
-		
-	}
-	
-	
 	private void addTestPoints()
 	{
-		float[] generated = new float[350*3];
 		float y = 0.0f;
 		float x = 0.0f;
-		_previewsVertex[0] = -0.0f;
-		_previewsVertex[1] = 0.0f;
-		_previewsVertex[2] = 0.0f;
-		for(int n = 0, index = 0;n<350;n++,index+=3){
+		for(int n = 0, index = 0;n<350;n++){
 			y+= 0.03;
 			x+= 0.005;
 			addPoint(x, y, 0.0f);
-
-			generated[index] = x;
-			generated[index+1] = y *( n % 2 == 0 ? -1:1);
-			generated[index+2] = -0.8f;
-			//addLine(_previewsVertex[0], _previewsVertex[1], _previewsVertex[2], x, y, 0.0f);
-
-			_previewsVertex[0] = x;
-			_previewsVertex[1] = y*( n % 2 == 0 ? -1:1);
-			_previewsVertex[2] = 0.0f;
 		}
-		Log.wtf("DRAWABLES", "AMOUNT = "+_drawables.size());
-		Plane plane = new Plane(generated,-0.5f);
-		//_drawables.add(plane);
-		
+		Log.wtf("DRAWABLES POINT ", "AMOUNT = "+_drawables.size());		
 	}
 	
+	/**
+	 * 
+	 * */
+	public void addLine(Line line)
+	{
+		if(line!=null){
+			_drawables.add(line);
+		}
+	}
+	
+	/**
+	 * Add a line from position 1 to position 2.
+	 * position1 = {x1,y1,z1}
+	 * position2 = {x2,y2,z2}
+	 * */
 	public void addLine(float x1,float y1,float z1,float x2,float y2,float z2)
 	{
 		Line line = new Line();
@@ -192,6 +169,9 @@ public class Graph
 		_drawables.add(line);
 	}
 	
+	/**
+	 * Add a point in the 3d world.
+	 * */
 	public void addPoint(float x,float y,float z)
 	{
 		Point point = new Point();
@@ -204,9 +184,7 @@ public class Graph
 	public void draw(GL10 gl)
 	{
 		grid.draw(gl);
-		
-		//point.draw(gl);
-		
+				
 		Iterator<GraphObject> it = _drawables.iterator();
 		while(it.hasNext() && !locked){
 			GraphObject obj = it.next();

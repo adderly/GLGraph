@@ -45,17 +45,21 @@ public class Grid extends GOColored
 	 * */
 	public void setGridLines(boolean what)
 	{
+		Line line3 = null;
 		for(float n = -1.0f;n < 1;n+=0.05){
-			Line line3 = new Line();
+			line3 = new Line();
 			line3.setVertex(n, 0, 1.0f, n, 0.0f, -1.0f);
 			line3.setColor(c.RED);
 			lines.add(line3);
 		}
 	}
 	
+	/**
+	 * Draw method of every drawable object.
+	 * */
 	public void draw(GL10 gl)
 	{		
-		Line line;
+		Line line = null;
 		Iterator<Line> it = lines.iterator();
 		while(it.hasNext())
 		{
