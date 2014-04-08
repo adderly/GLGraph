@@ -35,7 +35,7 @@ public class Grid extends GOColored
 		
 		Line line3 = new Line();
 		line3.setVertex(-0.0f, 0, 1.0f, 0, 0.0f, -1.0f);
-		line3.setColor(c.RED);
+		//line3.setColor(c.RED);
 		lines.add(line3);
 		setGridLines(true);
 	}

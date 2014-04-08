@@ -71,7 +71,7 @@ public class CustomGLRenderer implements GLSurfaceView.Renderer
 	     // gl.glRotatef(-25.9f, -150.0f, -60.5f, 0);
 	      //triangle.draw(gl);
 	      
-	      line.draw(gl);
+	      //line.draw(gl);
 	      
 	      if(!Graph.locked)
 	    	  getGraph().draw(gl);	      

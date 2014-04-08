@@ -30,9 +30,9 @@ public class Graph
 	{
 		grid = new Grid();		
 
-		addPlanes();
+		//addPlanes();
 		
-		addTestPoints();
+		//addTestPoints();
 	}
 	
 	/**

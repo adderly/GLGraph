@@ -54,13 +54,13 @@ public class GraphActivity extends Activity
 		Line line1 = new Line();
 		line1.setVertex(-1.0f, 0, 0, 1.0f,1.0f, 0);
 		line1.setColor(c.GREEN);//set the color 
-		glView.getRenderer().getGraph().addLine(line1); // add a line
+		//glView.getRenderer().getGraph().addLine(line1); // add a line
 		
 		float y = 0.0f;
 		float x = 0.0f;
 		for(int n = 0, index = 0;n<350;n++){
-			y+= 0.004;
-			x+= 0.005;
+			y+= 0.04;
+			x+= 0.05;
 			glView.getRenderer().getGraph().addPoint(x, y, 0.0f);//add points
 		}
 	}
@@ -68,7 +68,7 @@ public class GraphActivity extends Activity
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 		// TODO Auto-generated method stub
-		testPoint();
+		//testPoint();
 		return super.onTouchEvent(event);
 	}
 	
