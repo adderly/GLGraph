@@ -15,8 +15,13 @@ public class Point extends GOColored
 {
 	private ByteBuffer indicesBuffer;
 	private FloatBuffer vertexBuffer;
+	private float pointSize = 2.0f;
 	
 	
+	public void setPointSize(float pointSize) {
+		this.pointSize = pointSize;
+	}
+
 	private float[] vertices = {0.0f,0.0f,0.0f};
 	private byte[] indices = {0};
 	
@@ -50,6 +55,7 @@ public class Point extends GOColored
 	{
 		gl.glEnable(GL10.GL_POINT_SMOOTH);
 		gl.glEnable(GL10.GL_BLEND);
+		gl.glPointSize(pointSize);
 		gl.glBlendFunc(GL10.GL_SRC_ALPHA, GL10.GL_ONE_MINUS_SRC_ALPHA);
 		
 		gl.glEnableClientState(GL10.GL_VERTEX_ARRAY);

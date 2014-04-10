@@ -55,13 +55,14 @@ public class GraphActivity extends Activity
 		line1.setVertex(-1.0f, 0, 0, 1.0f,1.0f, 0);
 		line1.setColor(c.GREEN);//set the color 
 		//glView.getRenderer().getGraph().addLine(line1); // add a line
-		
+		Graph graph = glView.getRenderer().getGraph();
+		graph.pointSize = 4.0f;
 		float y = 0.0f;
 		float x = 0.0f;
 		for(int n = 0, index = 0;n<350;n++){
-			y+= 0.04;
-			x+= 0.05;
-			glView.getRenderer().getGraph().addPoint(x, y, 0.0f);//add points
+			y+= 0.02;
+			x+= 0.03;
+			graph.addPoint(x, y, 0.0f);//add points
 		}
 	}
 	

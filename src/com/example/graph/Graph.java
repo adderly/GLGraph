@@ -176,6 +176,7 @@ public class Graph
 	{
 		Point point = new Point();
 		point.setVertex(x, y, z);
+		point.setPointSize(pointSize);
 		_drawables.add(point);
 	}
 	
