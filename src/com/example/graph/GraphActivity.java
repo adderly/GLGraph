@@ -42,6 +42,13 @@ public class GraphActivity extends Activity
 		layout.addView(glView, params);
 		
 
+		
+
+		Graph graph = glView.getRenderer().getGraph();
+		Cylinder c = new Cylinder(0.1f,0.7f); //pass size here
+		c.setRadius(0.8f);//not working 
+		c.setHeight(0.7f);//not working
+		graph.addGObject(c);
 		testPoint();
 	}
 	

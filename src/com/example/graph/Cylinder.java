@@ -8,14 +8,17 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class Cylinder extends GOColored
 {
-	private float radius = 0.2f;
+	private float radius = 0.6f;
 	private float height = 0.4f;
 	private int amountOfSides = 64;
 	
 	List<GraphObject> triangles = new ArrayList<GraphObject>();
 	
-	public Cylinder()
+	public Cylinder(float _radius,float _height)
 	{
+		
+		radius =_radius;
+		height = _height;
 		int i = 0;
 		double angle = 0.0f;
 		float[] cx = new float[64];
@@ -24,7 +27,7 @@ public class Cylinder extends GOColored
 		for (i = 0; i < 64; i++)
 		{
 		    angle = 360 * i / 63;  // Or perhaps 2 * PI * i / 63
-		    cx[i] = (float) Math.sin(angle) * radius;
+		    cx[i] = (float) Math.sin(angle) *radius;
 		    cy[i] = (float) Math.cos(angle)* radius;
 		}
 
