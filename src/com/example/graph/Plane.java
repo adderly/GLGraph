@@ -82,9 +82,7 @@ public class Plane extends GOColored
 		bf.order(ByteOrder.nativeOrder());
 		vertexBuffer = bf.asFloatBuffer();
 		vertexBuffer.put(vertices);
-		vertexBuffer.position(0);
-		
-		
+		vertexBuffer.position(0);		
 	}	
 	
 	@Override

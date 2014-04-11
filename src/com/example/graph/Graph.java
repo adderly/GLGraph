@@ -28,7 +28,9 @@ public class Graph
 		
 	public Graph()
 	{
-		grid = new Grid();		
+		grid = new Grid();	
+		Cylinder c = new Cylinder();
+		_drawables.add(c);
 
 		//addPlanes();
 		

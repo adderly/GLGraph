@@ -39,6 +39,17 @@ public class Triangle extends GOColored
       setColor(c.RED);
    }
   
+   public void setVertex(float[] vertex)
+   {
+	   if(vertex.length == 9){
+		  ByteBuffer vbb = ByteBuffer.allocateDirect(vertex.length * 4);
+	      vbb.order(ByteOrder.nativeOrder()); // Use native byte order
+	      vertexBuffer = vbb.asFloatBuffer(); // Convert byte buffer to float
+	      vertexBuffer.put(vertex);         // Copy data into buffer
+	      vertexBuffer.position(0);           // Rewind		   
+	   }
+   }
+   
    // Render this shape
    public void draw(GL10 gl) {
       // Enable vertex-array and define the buffers
