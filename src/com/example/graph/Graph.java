@@ -29,8 +29,6 @@ public class Graph
 	public Graph()
 	{
 		grid = new Grid();	
-		Cylinder c = new Cylinder();
-		_drawables.add(c);
 
 		//addPlanes();
 		
@@ -147,6 +145,12 @@ public class Graph
 			addPoint(x, y, 0.0f);
 		}
 		Log.wtf("DRAWABLES POINT ", "AMOUNT = "+_drawables.size());		
+	}
+	
+	public void addGObject(GraphObject obj ){
+		if(obj!=null){
+			_drawables.add(obj);
+		}
 	}
 	
 	/**

@@ -62,17 +62,20 @@ public class Cylinder extends GOColored
 
 
 			   tmpQ[0] = cx[i];
-			   tmpQ[1] = cy[i];
-			   tmpQ[2] = 0;
+			   tmpQ[1] = 0;
+			   tmpQ[2] = cy[i];
+			   
 			   tmpQ[3] = cx[i+1];
-			   tmpQ[4] = cy[i+1];
-			   tmpQ[5] = 0;
+			   tmpQ[4] = 0;
+			   tmpQ[5] = cy[i+1];
+			   
 			   tmpQ[6] = cx[i];
-			   tmpQ[7] = cy[i];
-			   tmpQ[8] = 1;
+			   tmpQ[7] = height;
+			   tmpQ[8] = cy[i];
+			   
 			   tmpQ[9] = cx[i+1];
-			   tmpQ[10] = cy[i+1];
-			   tmpQ[11] = 1;
+			   tmpQ[10] = height;
+			   tmpQ[11] =  cy[i+1];
 //		    DrawTriangle(v0, v1, v2);
 //		    DrawTriangle(v1, v3, v2);
 
